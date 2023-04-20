@@ -1,15 +1,24 @@
 const CELL_PIXELS = 20;
-ROWS = -1;
-COLS = -1;
+
+let ROWS;
+let COLS;
+
+// colors
+const BG_COLOR = [33, 37, 43];
+const LINE_COLOR = [53, 57, 63];
+const WALL_COLOR = [0, 0, 0];
+const PATH_COLOR = [33, 37, 43];
 
 function init() {
-    ROWS = Math.floor(windowWidth / CELL_PIXELS); // how many cells are in a row
-    COLS = Math.floor(windowHeight / CELL_PIXELS); // how many cells are in a column
+    ROWS = Math.ceil((windowHeight - windowHeight / CELL_PIXELS) / CELL_PIXELS);
+    COLS = Math.ceil((windowWidth - windowWidth / CELL_PIXELS) / CELL_PIXELS);
+
+    mazeInit();
 }
 
 function setup() {
     init();
-    canvas = createCanvas(ROWS * CELL_PIXELS, COLS * CELL_PIXELS);
+    canvas = createCanvas(windowWidth, windowHeight);
     canvas.style('display', 'block');
 }
 
@@ -19,12 +28,7 @@ function windowResized() {
 }
 
 // ============================================================================================
-// all functions pertaining to the maze
-function displayMaze() {
-    drawGrid();
-}
-
 function draw() {
-    background(220);
-    displayMaze();
+    background(BG_COLOR);
+    drawMaze();
 }

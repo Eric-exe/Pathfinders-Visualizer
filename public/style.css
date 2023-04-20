@@ -3,6 +3,8 @@ html, body {
 }
 
 body {
+    background-color: color(33, 37, 43);
+    
     margin: 0;
     display: flex;
 
