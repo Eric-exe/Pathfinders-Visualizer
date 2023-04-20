@@ -1,0 +1,17 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+/*
+Taken from:
+https://github.com/processing/p5.js/wiki/Positioning-your-canvas
+*/
