@@ -15,6 +15,8 @@ function mazeInit() {
     cellsExplored = 0;
 
     maze = [];
+    beginCell = [];
+    endCell = [];
 
     // generate the maze
     switch (MAZE_GEN) {
@@ -22,7 +24,7 @@ function mazeInit() {
             prim();
             break;
     }
-    solverAnim = false; // the animation did not run yet
+    genAnim = false; // the animation did not run yet
 
     // solve the maze
     switch (SOLVER) {
