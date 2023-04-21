@@ -8,9 +8,12 @@ const WALL_COLOR = [0, 0, 0];
 const PATH_COLOR = BG_COLOR;
 const BEGIN_COLOR = [0, 100, 0];
 const END_COLOR = [139, 0, 0];
+const EXPLORED_COLOR = [112, 128, 144];
+const RES_COLOR = [0, 76, 153];
 
-let CELL_PIXELS = 20;
+let CELL_PIXELS = 25;
 let SKIP_PRIM_ANIM = false;
+let SKIP_SOLVER_ANIM = false;
 // ======================================================================================
 
 function init() {
