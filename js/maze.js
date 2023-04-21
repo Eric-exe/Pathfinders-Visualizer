@@ -1,33 +1,31 @@
 let maze;
 
+// these two variables help us visualize the maze being built
+let primSteps = [];
+let primStepCounter = 0;
+
 function mazeInit() {
     maze = [];
     for (let i = 0; i < ROWS; i++) {
         maze[i] = [];
         for (let j = 0; j < COLS; j++) {
-            maze[i][j] = { 
-                type : "path",
-                x : CELL_PIXELS * j + j,
-                y : CELL_PIXELS * i + i
-            };
+            maze[i][j] = [ 
+                "wall", // type
+                "wall", // original state
+                CELL_PIXELS * j + j, // x coord
+                CELL_PIXELS * i + i, // y coord
+            ];
         }
     }
-
-    // place walls on the border
-    for (let i = 0; i < COLS; i++) {
-        maze[0][i].type = "wall";
-        maze[ROWS - 1][i].type = "wall";
-    }
-
-    for (let j = 0; j < ROWS; j++) {
-        maze[j][0].type = "wall";
-        maze[j][COLS - 1].type = "wall";
-    }
+    
+    primStepCounter = 0;
+    primSteps = prim();
 
     return maze;
 }
 
 function drawGrid() {
+    strokeWeight(1);
     stroke(LINE_COLOR);
 
     let x = 0;
@@ -49,11 +47,11 @@ function drawCells() {
     for (let i = 0; i < ROWS; i++) {
         for (let j = 0; j < COLS; j++) {
 
-            stroke(LINE_COLOR);
+            noStroke();
             
             let fillColor;
 
-            switch (maze[i][j].type) {
+            switch (maze[i][j][0]) {
                 case "wall":
                     fillColor = WALL_COLOR;
                     break;
@@ -63,12 +61,21 @@ function drawCells() {
             }
 
             fill(fillColor);
-            square(maze[i][j].x, maze[i][j].y, CELL_PIXELS);
+            square(maze[i][j][2], maze[i][j][3], CELL_PIXELS);
         }
     }
 }
 
 function drawMaze() {
     drawGrid();
+
+    // is the maze being built?
+    if (primStepCounter < primSteps.length) {
+        let coords = primSteps[primStepCounter];
+        maze[coords[0]][coords[1]][0] = maze[coords[0]][coords[1]][1];
+        primStepCounter++;
+        console.log("Prim: " + primStepCounter + " / " + primSteps.length);
+    }
+
     drawCells();
 }

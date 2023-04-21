@@ -4,10 +4,10 @@ let ROWS;
 let COLS;
 
 // colors
-const BG_COLOR = [33, 37, 43];
-const LINE_COLOR = [53, 57, 63];
+const BG_COLOR = [153, 157, 163];
+const LINE_COLOR = [BG_COLOR[0] + 20, BG_COLOR[1] + 20, BG_COLOR[2] + 20];
 const WALL_COLOR = [0, 0, 0];
-const PATH_COLOR = [33, 37, 43];
+const PATH_COLOR = BG_COLOR;
 
 function init() {
     ROWS = Math.ceil((windowHeight - windowHeight / CELL_PIXELS) / CELL_PIXELS);
