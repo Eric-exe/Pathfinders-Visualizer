@@ -2,11 +2,15 @@ let ROWS;
 let COLS;
 
 // ======================================================================================
-const CELL_PIXELS = 20;
 const BG_COLOR = [153, 157, 163];
 const LINE_COLOR = [BG_COLOR[0] + 20, BG_COLOR[1] + 20, BG_COLOR[2] + 20];
 const WALL_COLOR = [0, 0, 0];
 const PATH_COLOR = BG_COLOR;
+const BEGIN_COLOR = [0, 100, 0];
+const END_COLOR = [139, 0, 0];
+
+let CELL_PIXELS = 20;
+let SKIP_PRIM_ANIM = false;
 // ======================================================================================
 
 function init() {

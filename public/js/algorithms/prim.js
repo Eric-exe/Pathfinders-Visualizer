@@ -10,6 +10,18 @@ function prim() {
 
     steps = [];
     generateMaze(x, y, steps);
+    
+    if (steps.length < 2) return;
+    // choose two random steps to be the begin and end cells
+    let beginIdx = Math.floor(Math.random() * steps.length);
+    beginCell = steps[beginIdx];
+    maze[beginCell[0]][beginCell[1]][1] = 'begin';
+    
+    // in the rare case beginIdx equals to endIdx
+    let endIdx = Math.floor(Math.random() * steps.length);
+    while (beginIdx == endIdx) endIdx = Math.floor(Math.random() * steps.length);
+    endCell = steps[endIdx];
+    maze[endCell[0]][endCell[1]][1] = 'end';
 
     return steps;
 }

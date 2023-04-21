@@ -1,10 +1,12 @@
+// ===========================================================================================
+// maze vars
 let maze;
-
+let beginCell;
+let endCell;
 // ===========================================================================================
 // these variables help visualize the maze being built
 let primSteps = [];
 let primStepCounter = 0;
-let skipPrimAnimation = false;
 // ===========================================================================================
 
 function mazeInit() {
@@ -24,6 +26,8 @@ function mazeInit() {
     
     primStepCounter = 0;
     primSteps = prim();
+
+    // Add begin and end
 
     return maze;
 }
@@ -62,6 +66,12 @@ function drawCells() {
                 case "path":
                     fillColor = PATH_COLOR;
                     break;
+                case 'begin':
+                    fillColor = BEGIN_COLOR;
+                    break;
+                case 'end':
+                    fillColor = END_COLOR;
+                    break;
             }
 
             fill(fillColor);
@@ -78,7 +88,7 @@ function drawMaze() {
 
         let coords = primSteps[primStepCounter];
 
-        if (skipPrimAnimation) {
+        if (SKIP_PRIM_ANIM) {
             for (; primStepCounter < primSteps.length; primStepCounter++) {
                 coords = primSteps[primStepCounter];
                 maze[coords[0]][coords[1]][0] = maze[coords[0]][coords[1]][1];
