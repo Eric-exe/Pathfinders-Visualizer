@@ -4,28 +4,35 @@ let maze;
 let beginCell; // [xCoord][yCoord]
 let endCell; // [xCoord][yCoord]
 
+// Statistics
+let pathLength;
+let cellsExplored;
+
 // Creates the maze with simplified Prim's algorithm. Also sets the start and end cells
 function mazeInit() {
+
+    pathLength = 0;
+    cellsExplored = 0;
+
     maze = [];
 
-    for (let i = 0; i < ROWS; i++) {
-        maze[i] = [];
-        for (let j = 0; j < COLS; j++) {
-            maze[i][j] = [ 
-                "wall", // state
-                "wall", // original state, we will need it when the user wants to reset the maze
-                CELL_PIXELS * j + j, // x coord
-                CELL_PIXELS * i + i, // y coord
-            ];
-        }
+    // generate the maze
+    switch (MAZE_GEN) {
+        case "prim":
+            prim();
+            break;
     }
+    solverAnim = false; // the animation did not run yet
 
-    // now generate the maze
-    prim();
-    primAnim = false; // the animation did not run yet
-
-    // now solve the maze
-    bfs();
+    // solve the maze
+    switch (SOLVER) {
+        case "bfs":
+            bfs();
+            break;
+        case "dfs":
+            dfs();
+            break;
+    }
     solverAnim = false;
     
 
@@ -88,12 +95,30 @@ function drawCells() {
 
 // ===========================================================================================
 // Animation states
-let primAnim = false;
+let genAnim = false;
 let solverAnim = false;
 // ===========================================================================================
 function drawMaze() {
     drawGrid();
-    if (!primAnim) primAnim = animatePrim();
-    else if (!solverAnim) solverAnim = animateBFS();
+
+    if (!genAnim) {
+        switch (MAZE_GEN) {
+            case "prim":
+                genAnim = animatePrim();
+                break;
+        }
+    }
+
+    else if (!solverAnim) {
+        switch (SOLVER) {
+            case "bfs":
+                solverAnim = animateBFS();
+                break;
+            case "dfs":
+                solverAnim = animateDFS();
+                break;
+        }
+    }
+    
     drawCells();
 }

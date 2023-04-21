@@ -2,17 +2,10 @@
 Breadth first search
 */
 
-// Statistics
-let pathLength;
-let cellsExplored;
-
 function bfs() {
     // reset
-    bfsStepCounter = 0;
     bfsSteps = [];
-
-    pathLength = 0;
-    cellsExplored = 0;
+    bfsStepCounter = 0;
 
     let q = [];
     let paths = {};
@@ -106,7 +99,6 @@ function animateBFS() {
             }
 
             maze[step[0]][step[1]][0] = step[2];
-            if (step[2] == "res") console.log("HI");
             bfsStepCounter++;
             return false;
         }

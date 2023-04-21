@@ -2,7 +2,22 @@
 Simplified Prim's Algorithm
 */
 
+function primInit() {
+    for (let i = 0; i < ROWS; i++) {
+        maze[i] = [];
+        for (let j = 0; j < COLS; j++) {
+            maze[i][j] = [ 
+                "wall", // state
+                "wall", // original state, we will need it when the user wants to reset the maze
+                CELL_PIXELS * j + j, // x coord
+                CELL_PIXELS * i + i, // y coord
+            ];
+        }
+    }
+}
+
 function prim() {
+    primInit();
     // edge case
     if (ROWS == 0 || COLS == 0) return;
 
