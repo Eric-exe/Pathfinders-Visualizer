@@ -36,19 +36,19 @@ function bfs() {
             cellsExplored++;
         }
 
-        // check right
-        if (!paths.hasOwnProperty([currentCell[0], currentCell[1] + 1]) && currentCell[1] < COLS - 1 && (maze[currentCell[0]][currentCell[1] + 1][1] == "path" || maze[currentCell[0]][currentCell[1] + 1][1] == "end")) {
-            paths[[currentCell[0], currentCell[1] + 1]] = currentCell;
-            q.push([currentCell[0], currentCell[1] + 1]);
-            bfsSteps.push([currentCell[0], currentCell[1] + 1, "explored"]);
-            cellsExplored++;
-        }
-
         // check up
         if (!paths.hasOwnProperty([currentCell[0] - 1, currentCell[1]]) && currentCell[0] > 0 && (maze[currentCell[0] - 1][currentCell[1]][1] == "path" || maze[currentCell[0] - 1][currentCell[1]][1] == "end")) {
             paths[[currentCell[0] - 1, currentCell[1]]] = currentCell;
             q.push([currentCell[0] - 1, currentCell[1]]);
             bfsSteps.push([currentCell[0] - 1, currentCell[1], "explored"]);
+            cellsExplored++;
+        }
+
+        // check right
+        if (!paths.hasOwnProperty([currentCell[0], currentCell[1] + 1]) && currentCell[1] < COLS - 1 && (maze[currentCell[0]][currentCell[1] + 1][1] == "path" || maze[currentCell[0]][currentCell[1] + 1][1] == "end")) {
+            paths[[currentCell[0], currentCell[1] + 1]] = currentCell;
+            q.push([currentCell[0], currentCell[1] + 1]);
+            bfsSteps.push([currentCell[0], currentCell[1] + 1, "explored"]);
             cellsExplored++;
         }
 
