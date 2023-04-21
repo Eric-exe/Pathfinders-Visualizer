@@ -2,6 +2,7 @@ let ROWS;
 let COLS;
 
 // ======================================================================================
+const FRAMERATE = 60; // some browsers might not support framerates. Max framerate: 60
 const BG_COLOR = [153, 157, 163];
 const LINE_COLOR = [BG_COLOR[0] + 20, BG_COLOR[1] + 20, BG_COLOR[2] + 20];
 const WALL_COLOR = [0, 0, 0];
@@ -26,6 +27,7 @@ function init() {
 }
 
 function setup() {
+    frameRate(FRAMERATE);
     canvas = createCanvas(windowWidth, windowHeight);
     canvas.style('display', 'block');
     init();
@@ -38,6 +40,7 @@ function windowResized() {
 
 // ============================================================================================
 function draw() {
+    // console.log(getFrameRate());
     background(BG_COLOR);
     drawMaze();
 }
