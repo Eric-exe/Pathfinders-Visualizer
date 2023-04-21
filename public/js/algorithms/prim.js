@@ -8,6 +8,7 @@ function prim() {
     let x = 1 + Math.floor(Math.random() * (ROWS - 1));
     let y = 1 + Math.floor(Math.random() * (COLS - 1));
 
+    steps = [];
     generateMaze(x, y, steps);
 
     return steps;
