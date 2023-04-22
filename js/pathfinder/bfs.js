@@ -54,8 +54,8 @@ function bfs() {
         }
     }
 
-    // The code below assumes that there is always at least one valid path.
-    // Thus, iterate backwards from endCell to beginCell to create the resulting path.
+    // Because we are using prim's algorithm to generate our maze, we can assume that there is always a path
+    // Thus, we can iterate backwards to get the shortest path
     let answerPath = [];
 
     let currentCell = endCell;
@@ -79,7 +79,7 @@ let bfsStepCounter = 0;
 function animateBFS() {
     // animate the solving
 
-    // Note: we are using the state, not the original state since maze gen will have been animated
+    // Note: we are using the state, not the original state since prim will have been animated
     if (bfsStepCounter < bfsSteps.length) {
         if (SKIP_SOLVER_ANIM) {
             for (; bfsStepCounter < bfsSteps.length; bfsStepCounter++) {
@@ -92,6 +92,7 @@ function animateBFS() {
         else {
             let step = bfsSteps[bfsStepCounter];
             // we ignore cells marked as begin and end
+
             if (maze[step[0]][step[1]][0] == "begin" || maze[step[0]][step[1]][0] == "end") {
                 bfsStepCounter++;
                 return false;

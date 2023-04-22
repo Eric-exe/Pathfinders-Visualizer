@@ -16,7 +16,7 @@ let CELL_PIXELS = 25;
 let MAZE_GEN = "primImperfect";
 let MAX_WALL_DELETION_PERCENT = 25; // to make an imperfect maze, delete a random amount of walls
 let SOLVER = "bfs";
-let SKIP_GEN_ANIM = false;
+let SKIP_PRIM_ANIM = false;
 let SKIP_SOLVER_ANIM = false;
 // ======================================================================================
 

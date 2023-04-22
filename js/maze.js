@@ -1,8 +1,8 @@
 // ===========================================================================================
 // maze vars
 let maze;
-let beginCell; // [x position][y position]
-let endCell; // [x position][y position]
+let beginCell; // [xCoord][yCoord]
+let endCell; // [xCoord][yCoord]
 
 // Statistics
 let pathLength;
