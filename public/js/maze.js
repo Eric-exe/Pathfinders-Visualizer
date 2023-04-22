@@ -8,7 +8,6 @@ let endCell; // [xCoord][yCoord]
 let pathLength;
 let cellsExplored;
 
-// Creates the maze with simplified Prim's algorithm. Also sets the start and end cells
 function mazeInit() {
 
     pathLength = 0;
@@ -22,6 +21,9 @@ function mazeInit() {
     switch (MAZE_GEN) {
         case "prim":
             prim();
+            break;
+        case "primImperfect":
+            primImperfect();
             break;
     }
     genAnim = false; // the animation did not run yet
@@ -107,6 +109,9 @@ function drawMaze() {
         switch (MAZE_GEN) {
             case "prim":
                 genAnim = animatePrim();
+                break;
+            case "primImperfect":
+                genAnim = animatePrimImperfect();
                 break;
         }
     }
