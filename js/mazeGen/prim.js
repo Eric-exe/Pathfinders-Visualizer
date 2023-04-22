@@ -28,6 +28,8 @@ function prim() {
     let y = Math.floor(Math.random() * (COLS));
 
     primSteps = [];
+    primStepCounter = 0;
+    
     generateMaze(x, y);
     
     if (primSteps.length < 2) return;
@@ -41,8 +43,6 @@ function prim() {
     while (beginIdx == endIdx) endIdx = Math.floor(Math.random() * primSteps.length);
     endCell = primSteps[endIdx];
     maze[endCell[0]][endCell[1]][1] = 'end';
-
-    primStepCounter = 0;
 }
 
 let unexplored = [];
@@ -81,7 +81,7 @@ function animatePrim() {
 
         let coords = primSteps[primStepCounter];
 
-        if (SKIP_PRIM_ANIM) {
+        if (SKIP_GEN_ANIM) {
             for (; primStepCounter < primSteps.length; primStepCounter++) {
                 coords = primSteps[primStepCounter];
                 maze[coords[0]][coords[1]][0] = maze[coords[0]][coords[1]][1];
