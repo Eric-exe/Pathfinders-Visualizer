@@ -2,6 +2,9 @@
 Simplified Prim's Algorithm
 */
 
+// Note: It always generates a perfect maze. 
+// This means that 
+
 function primInit() {
     for (let i = 0; i < ROWS; i++) {
         maze[i] = [];
