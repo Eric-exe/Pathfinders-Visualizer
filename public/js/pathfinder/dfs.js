@@ -12,8 +12,8 @@ function dfs() {
     dfsHelper(beginCell);
     cellsExplored++; // include the beginning cell as explored
 
-    // Because we are using prim's algorithm to generate our maze, we can assume that there is always a path
-    // Thus, we can iterate backwards to get the shortest path
+    // The code below assumes that there is always at least one valid path.
+    // Thus, iterate backwards from endCell to beginCell to create the resulting path.
     let answerPath = [];
 
     let currentCell = endCell;
@@ -81,7 +81,7 @@ let dfsStepCounter = 0;
 function animateDFS() {
     // animate the solving
 
-    // Note: we are using the state, not the original state since prim will have been animated
+    // Note: we are using the state, not the original state since maze gen will have been animated
     if (dfsStepCounter < dfsSteps.length) {
         if (SKIP_SOLVER_ANIM) {
             for (; dfsStepCounter < dfsSteps.length; dfsStepCounter++) {
@@ -94,7 +94,6 @@ function animateDFS() {
         else {
             let step = dfsSteps[dfsStepCounter];
             // we ignore cells marked as begin and end
-
             if (maze[step[0]][step[1]][0] == "begin" || maze[step[0]][step[1]][0] == "end") {
                 dfsStepCounter++;
                 return false;
