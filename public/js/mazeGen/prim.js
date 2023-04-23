@@ -27,21 +27,21 @@ function prim() {
     let x = Math.floor(Math.random() * (ROWS));
     let y = Math.floor(Math.random() * (COLS));
 
-    primSteps = [];
-    primStepCounter = 0;
+    mazeGenSteps = [];
+    mazeGenCounter = 0;
     
     generateMaze(x, y);
     
-    if (primSteps.length < 2) return;
+    if (mazeGenSteps.length < 2) return;
     // choose two random steps to be the begin and end cells
-    let beginIdx = Math.floor(Math.random() * primSteps.length);
-    beginCell = primSteps[beginIdx];
+    let beginIdx = Math.floor(Math.random() * mazeGenSteps.length);
+    beginCell = mazeGenSteps[beginIdx];
     maze[beginCell[0]][beginCell[1]][1] = 'begin';
     
     // in the rare case beginIdx equals to endIdx
-    let endIdx = Math.floor(Math.random() * primSteps.length);
-    while (beginIdx == endIdx) endIdx = Math.floor(Math.random() * primSteps.length);
-    endCell = primSteps[endIdx];
+    let endIdx = Math.floor(Math.random() * mazeGenSteps.length);
+    while (beginIdx == endIdx) endIdx = Math.floor(Math.random() * mazeGenSteps.length);
+    endCell = mazeGenSteps[endIdx];
     maze[endCell[0]][endCell[1]][1] = 'end';
 }
 
@@ -49,7 +49,7 @@ let unexplored = [];
 
 function generateMaze(x, y) {
     maze[x][y][1] = "path";
-    primSteps.push([x, y]);
+    mazeGenSteps.push([x, y]);
 
     if (x >= 2 && maze[x - 2][y][1] == "wall") unexplored.push([x - 1, y, x - 2, y]);
     if (y >= 2 && maze[x][y - 2][1] == "wall") unexplored.push([x, y - 1, x, y - 2]);
@@ -63,35 +63,8 @@ function generateMaze(x, y) {
 
         if (maze[coords[2]][coords[3]][1] == "wall") {
             maze[coords[0]][coords[1]][1] = "path";
-            primSteps.push([coords[0], coords[1]]);
+            mazeGenSteps.push([coords[0], coords[1]]);
             generateMaze(coords[2], coords[3]);
         }
     }
-}
-
-// ===========================================================================================
-// these variables help visualize the maze being built
-let primSteps = [];
-let primStepCounter = 0;
-// ===========================================================================================
-
-function animatePrim() {
-    // animate the building of the maze
-    if (primStepCounter < primSteps.length) {
-
-        let coords = primSteps[primStepCounter];
-
-        if (SKIP_GEN_ANIM) {
-            for (; primStepCounter < primSteps.length; primStepCounter++) {
-                coords = primSteps[primStepCounter];
-                maze[coords[0]][coords[1]][0] = maze[coords[0]][coords[1]][1];
-            }
-        }
-        else {
-            maze[coords[0]][coords[1]][0] = maze[coords[0]][coords[1]][1];
-            primStepCounter++;
-            return false;
-        }
-    }
-    return true;
 }
