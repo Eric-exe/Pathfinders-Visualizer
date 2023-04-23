@@ -15,7 +15,7 @@ let FRAMERATE = 60; // some browsers might not support framerates. Max framerate
 let CELL_PIXELS = 25;
 let MAZE_GEN = "primImperfect";
 let MAX_WALL_DELETION_PERCENT = 25; // to make an imperfect maze, delete a random amount of walls
-let SOLVER = "bfs";
+let SOLVER = "aStar";
 let SKIP_GEN_ANIM = false;
 let SKIP_SOLVER_ANIM = false;
 // ======================================================================================

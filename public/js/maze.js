@@ -36,6 +36,9 @@ function mazeInit() {
         case "dfs":
             dfs();
             break;
+        case "aStar":
+            aStar();
+            break;
     }
     solverAnim = false;
     
@@ -123,6 +126,9 @@ function drawMaze() {
                 break;
             case "dfs":
                 solverAnim = animateDFS();
+                break;
+            case "aStar":
+                solverAnim = animateAStar();
                 break;
         }
     }
