@@ -31,15 +31,10 @@ function primImperfect() {
         // update the original state
         maze[coords[0]][coords[1]][1] = "path";
 
-        // update the primSteps to animate
-        primSteps.push(coords);
+        // update the mazeGenSteps to animate
+        mazeGenSteps.push(coords);
 
         // remove the wall from wallCoords
         wallCoords.splice(idx, 1);
     }
-}
-
-function animatePrimImperfect() {
-    // same animations as animatePrim
-    return animatePrim();
 }

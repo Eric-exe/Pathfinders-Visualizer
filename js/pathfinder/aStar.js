@@ -10,8 +10,8 @@ function aStar() {
     // This function should solve the maze.
 
     // reset variables
-    aStarSteps = [];
-    aStarStepCounter = 0;
+    mazeSolverSteps = [];
+    mazeSolverCounter = 0;
 
     let paths = {}; // the key is traversed to from the value
 
@@ -50,8 +50,8 @@ function aStar() {
             let dist = manhattenDist(currentCell[0], currentCell[1] - 1);
             if (!pq[score + 1 + dist]) pq[score + 1 + dist] = [];
             pq[score + 1 + dist].push([currentCell[0], currentCell[1] - 1]);
-            aStarSteps.push([currentCell[0], currentCell[1] - 1, "explored"]);
 
+            mazeSolverSteps.push([currentCell[0], currentCell[1] - 1, "explored"]);
             cellsExplored++;
         }
 
@@ -62,8 +62,8 @@ function aStar() {
             let dist = manhattenDist(currentCell[0] - 1, currentCell[1]);
             if (!pq[score + 1 + dist]) pq[score + 1 + dist] = [];
             pq[score + 1 + dist].push([currentCell[0] - 1, currentCell[1]]);
-            aStarSteps.push([currentCell[0] - 1, currentCell[1], "explored"]);
 
+            mazeSolverSteps.push([currentCell[0] - 1, currentCell[1], "explored"]);
             cellsExplored++;
         }
 
@@ -74,8 +74,8 @@ function aStar() {
             let dist = manhattenDist(currentCell[0], currentCell[1] + 1);
             if (!pq[score + 1 + dist]) pq[score + 1 + dist] = [];
             pq[score + 1 + dist].push([currentCell[0], currentCell[1] + 1]);
-            aStarSteps.push([currentCell[0], currentCell[1] + 1, "explored"]);
 
+            mazeSolverSteps.push([currentCell[0], currentCell[1] + 1, "explored"]);
             cellsExplored++;
         }
 
@@ -86,8 +86,8 @@ function aStar() {
             let dist = manhattenDist(currentCell[0] + 1, currentCell[1]);
             if (!pq[score + 1 + dist]) pq[score + 1 + dist] = [];
             pq[score + 1 + dist].push([currentCell[0] + 1, currentCell[1]]);
-            aStarSteps.push([currentCell[0] + 1, currentCell[1], "explored"]);
-
+            
+            mazeSolverSteps.push([currentCell[0] + 1, currentCell[1], "explored"]);
             cellsExplored++;
         }
     }
@@ -105,40 +105,5 @@ function aStar() {
     pathLength += 1; // include the beginning cell
 
     answerPath.reverse();
-    aStarSteps = aStarSteps.concat(answerPath);
-}
-
-// ===========================================================================================
-// these variables help visualize the maze being solved
-let aStarSteps = [];
-let aStarStepCounter = 0;
-// ===========================================================================================
-
-function animateAStar() {
-    // animate the solving
-
-    // Note: we are using the state, not the original state since maze gen will have been animated
-    if (aStarStepCounter < aStarSteps.length) {
-        if (SKIP_SOLVER_ANIM) {
-            for (; aStarStepCounter < aStarSteps.length; aStarStepCounter++) {
-                let step = aStarSteps[aStarStepCounter];
-                // we ignore cells marked as begin and end
-                if (maze[step[0]][step[1]][0] == "begin" || maze[step[0]][step[1]][0] == "end") continue;
-                maze[step[0]][step[1]][0] = step[2];
-            }
-        }
-        else {
-            let step = aStarSteps[aStarStepCounter];
-            // we ignore cells marked as begin and end
-            if (maze[step[0]][step[1]][0] == "begin" || maze[step[0]][step[1]][0] == "end") {
-                aStarStepCounter++;
-                return false;
-            }
-
-            maze[step[0]][step[1]][0] = step[2];
-            aStarStepCounter++;
-            return false;
-        }
-    }
-    return true;
+    mazeSolverSteps = mazeSolverSteps.concat(answerPath);
 }

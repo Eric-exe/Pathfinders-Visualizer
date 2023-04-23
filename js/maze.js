@@ -29,7 +29,7 @@ function mazeInit() {
     genAnim = false; // the animation did not run yet
 
     // solve the maze
-    switch (SOLVER) {
+    switch (MAZE_SOLVER) {
         case "bfs":
             bfs();
             break;
@@ -105,33 +105,76 @@ function drawCells() {
 let genAnim = false;
 let solverAnim = false;
 // ===========================================================================================
+// Generator animation
+
+// these variables help us visualize the maze being built
+let mazeGenSteps = [];
+let mazeGenCounter = 0;
+
+function animateMazeGen() {
+    // animate the building of the maze
+    if (mazeGenCounter < mazeGenSteps.length) {
+
+        let coords = mazeGenSteps[mazeGenCounter];
+
+        if (SKIP_GEN_ANIM) {
+            for (; mazeGenCounter < mazeGenSteps.length; mazeGenCounter++) {
+                coords = mazeGenSteps[mazeGenCounter];
+                maze[coords[0]][coords[1]][0] = maze[coords[0]][coords[1]][1];
+            }
+            return true;
+        }
+        else {
+            maze[coords[0]][coords[1]][0] = maze[coords[0]][coords[1]][1];
+            mazeGenCounter++;
+            return false;
+        }
+    }
+    return true;
+}
+
+// ===========================================================================================
+// Solver animation
+
+// these variables help visualize the maze being solved
+let mazeSolverSteps = [];
+let mazeSolverCounter = 0;
+
+function animateMazeSolver() {
+    // animate the solving
+    // Note: we are using the state, not the original state since animateMazeGen() will executed
+    if (mazeSolverCounter < mazeSolverSteps.length) {
+        if (SKIP_SOLVER_ANIM) {
+            for (; mazeSolverCounter < mazeSolverSteps.length; mazeSolverCounter++) {
+                let step = mazeSolverSteps[mazeSolverCounter];
+                // we ignore cells marked as begin and end
+                if (maze[step[0]][step[1]][0] == "begin" || maze[step[0]][step[1]][0] == "end") continue;
+                maze[step[0]][step[1]][0] = step[2];
+            }
+            return true;
+        }
+        else {
+            let step = mazeSolverSteps[mazeSolverCounter];
+            // we ignore cells marked as begin and end
+            if (maze[step[0]][step[1]][0] == "begin" || maze[step[0]][step[1]][0] == "end") {
+                mazeSolverCounter++;
+                return false;
+            }
+            maze[step[0]][step[1]][0] = step[2];
+            mazeSolverCounter++;
+            return false;
+        }
+    }
+    return true;
+}
+
+// ===========================================================================================
+
 function drawMaze() {
     drawGrid();
 
-    if (!genAnim) {
-        switch (MAZE_GEN) {
-            case "prim":
-                genAnim = animatePrim();
-                break;
-            case "primImperfect":
-                genAnim = animatePrimImperfect();
-                break;
-        }
-    }
-
-    else if (!solverAnim) {
-        switch (SOLVER) {
-            case "bfs":
-                solverAnim = animateBFS();
-                break;
-            case "dfs":
-                solverAnim = animateDFS();
-                break;
-            case "aStar":
-                solverAnim = animateAStar();
-                break;
-        }
-    }
+    if (!genAnim) genAnim = animateMazeGen();
+    else if (!solverAnim) solverAnim = animateMazeSolver();
     
     drawCells();
 }
