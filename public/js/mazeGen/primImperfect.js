@@ -2,7 +2,7 @@
 Simplified Prim's Algorithm
 but we delete random number of walls to make the maze imperfect
 
-We delete between 0 and MAX_WALL_DELETION_PERCENT % of walls
+We delete WALL_DELETION_PERCENT % of walls
 */
 
 function primImperfect() {
@@ -20,10 +20,10 @@ function primImperfect() {
         }
     }
 
-    // calculate a random number of walls to delete
-    let numCellsToDelete = Math.floor(Math.random() * (wallCoords.length * (MAX_WALL_DELETION_PERCENT / 100)));
+    // calculate the number of walls to delete
+    let numWallsToDelete = Math.floor(wallCoords.length * (WALL_DELETION_PERCENT / 100));
 
-    for (let i = 0; i < numCellsToDelete; i++) {
+    for (let i = 0; i < numWallsToDelete; i++) {
         // choose a random index from the wallCoords array
         let idx = Math.floor(Math.random() * wallCoords.length);
         let coords = wallCoords[idx];

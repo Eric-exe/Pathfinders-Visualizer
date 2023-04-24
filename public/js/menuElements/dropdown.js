@@ -56,7 +56,7 @@ class Dropdown {
     }
 
     drawDropdown() {
-        if (!this.pressed) return;
+        if (!this.pressed) return false;
         let optionsX = this.x;
         let optionsY = this.y + this.height;
 
@@ -78,6 +78,7 @@ class Dropdown {
 
             optionsY += this.height;
         }
+        return true;
     }
 
     value() {
