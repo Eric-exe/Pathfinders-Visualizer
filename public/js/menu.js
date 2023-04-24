@@ -1,5 +1,9 @@
+const MENU_BG_COLOR = [13, 17, 23];
+const MENU_BORDER_COLOR = [213, 217, 223];
+const MENU_TEXT_COLOR = [255, 255, 255];
+
 const MENU_WIDTH = 325;
-const MENU_HEIGHT = 175;
+const MENU_HEIGHT = 250;
 const MENU_RADIUS = 5; // for rounded edges
 const MENU_OFFSET = 25; // for initial position
 

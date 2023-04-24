@@ -1,5 +1,23 @@
-// ===========================================================================================
-// maze vars
+const BG_COLOR = [153, 157, 163];
+const LINE_COLOR = [173, 177, 183];
+
+const WALL_COLOR = [0, 0, 0];
+const PATH_COLOR = [153, 157, 163];
+const BEGIN_COLOR = [0, 100, 0];
+const END_COLOR = [139, 0, 0];
+const EXPLORED_COLOR = [112, 128, 144];
+const RES_COLOR = [0, 76, 153];
+
+let CELL_PIXELS = 25;
+
+let MAZE_GEN = "primImperfect";
+let WALL_DELETION_PERCENT = 25; // to make an imperfect maze, delete a random amount of walls
+
+let MAZE_SOLVER = "aStar";
+
+let SKIP_GEN_ANIM = false;
+let SKIP_SOLVER_ANIM = false;
+
 let maze;
 let beginCell; // [x position][y position]
 let endCell; // [x position][y position]
