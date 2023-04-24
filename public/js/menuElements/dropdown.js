@@ -14,36 +14,6 @@ class Dropdown {
         this.pressed = false;
     }
 
-    mousePressed() {
-        if (this.pressed) {
-            // check if any of the options were pressed
-            let optionsX = this.x;
-            let optionsY = this.y + this.height + 1;
-            
-            let options = Object.keys(this.elements);
-            
-            for (let i = 0; i < options.length; i++) {
-                if (mouseX > optionsX &&
-                    mouseY > optionsY &&
-                    mouseX < optionsX + this.width &&
-                    mouseY < optionsY + this.height * (i + 1)) {
-                    this.current = options[i];
-                    this.pressed = false; // close the dropdown
-                    return true;
-                }
-            }
-        }
-
-        if (mouseX > this.x &&
-            mouseY > this.y &&
-            mouseX < this.x + this.width &&
-            mouseY < this.y + this.height) {
-            this.pressed = !this.pressed;
-            return true;
-        }
-        return false;
-    }
-
     draw(x, y) {
         this.x = x;
         this.y = y;
@@ -58,16 +28,15 @@ class Dropdown {
             stroke(DROPDOWN_OVER_BORDER_COLOR);
         }
 
-        rect(x, y, this.width, this.height);
+        rect(this.x, this.y, this.width, this.height);
 
         fill(DROPDOWN_BORDER_COLOR);
         stroke(DROPDOWN_BORDER_COLOR);
-        if (this.pressed) triangle(x + this.width - 13, y + this.height / 1.5 + this.height / 5, x + this.width - 8, y + this.height / 1.5 - this.height / 2.5, x + this.width - 3, y + this.height / 1.5 + this.height / 5);
-        else triangle(x + this.width - 13, y + this.height / 1.5 - this.height / 2.5, x + this.width - 8, y + this.height / 1.5 + this.height / 5, x + this.width - 3, y + this.height / 1.5 - this.height / 2.5);
+        if (this.pressed) triangle(this.x + this.width - 13, this.y + this.height / 1.5 + this.height / 5, this.x + this.width - 8, this.y + this.height / 1.5 - this.height / 2.5, this.x + this.width - 3, this.y + this.height / 1.5 + this.height / 5);
+        else triangle(this.x + this.width - 13, this.y + this.height / 1.5 - this.height / 2.5, this.x + this.width - 8, this.y + this.height / 1.5 + this.height / 5, this.x + this.width - 3, this.y + this.height / 1.5 - this.height / 2.5);
 
         fill(DROPDOWN_TEXT_COLOR);
-        text(this.current, x + 3, y + 4, x + this.width, y + this.height);
-        strokeWeight(1);
+        text(this.current, this.x + 3, this.y + 4, this.x + this.width, this.y + this.height);
     }
 
     drawDropdown() {
@@ -101,5 +70,35 @@ class Dropdown {
 
     value() {
         return this.elements[this.current];
+    }
+
+    mousePressed() {
+        if (this.pressed) {
+            // check if any of the options were pressed
+            let optionsX = this.x;
+            let optionsY = this.y + this.height + 1;
+            
+            let options = Object.keys(this.elements);
+            
+            for (let i = 0; i < options.length; i++) {
+                if (mouseX > optionsX &&
+                    mouseY > optionsY &&
+                    mouseX < optionsX + this.width &&
+                    mouseY < optionsY + this.height * (i + 1)) {
+                    this.current = options[i];
+                    this.pressed = false; // close the dropdown
+                    return true;
+                }
+            }
+        }
+
+        if (mouseX > this.x &&
+            mouseY > this.y &&
+            mouseX < this.x + this.width &&
+            mouseY < this.y + this.height) {
+            this.pressed = !this.pressed;
+            return true;
+        }
+        return false;
     }
 }

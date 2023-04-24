@@ -1,6 +1,7 @@
 const MENU_BG_COLOR = [13, 17, 23];
 const MENU_BORDER_COLOR = [213, 217, 223];
 const MENU_TEXT_COLOR = [255, 255, 255];
+const MENU_BAR_COLOR = [255, 255, 255];
 
 const MENU_WIDTH = 325;
 const MENU_HEIGHT = 250;
@@ -20,14 +21,18 @@ let menuHidden = false; // make menu hidden
 
 // ======================================================================
 // Menu elements
+let gridSizeSlider;
 let mazeGenDropdown;
 let mazeSolverDropdown;
+let percentWallDeletionSlider;
 // ======================================================================
 
 const mazeGenAlgorithms = {
     "Non-perfect Prim" : "primImperfect",
     "Prim" : "prim"
 }
+
+const imperfectMazes = ["primImperfect"]; 
 
 const mazeSolverAlgorithms = {
     "A*" : "aStar",
@@ -41,6 +46,8 @@ function menuInit() {
 
     mazeGenDropdown = new Dropdown(mazeGenAlgorithms);
     mazeSolverDropdown = new Dropdown(mazeSolverAlgorithms);
+    wallDeletionPercentSlider = new Slider(0, 100, WALL_DELETION_PERCENT);
+    gridSizeSlider = new Slider(2, 100, CELL_PIXELS);
 }
 
 function drawMenu() {
@@ -64,19 +71,51 @@ function drawMenu() {
     fill(MENU_TEXT_COLOR);
     textAlign(CENTER);
     text("MENU", menuX + MENU_WIDTH / 2, menuElementPositionY);
-    
-    // ===========================================================================================
-    menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
     textAlign(LEFT);
-    fill(MENU_TEXT_COLOR);
-    text("Maze Generation Algorithm: ", menuElementPositionX, menuElementPositionY);
-    mazeGenDropdown.draw(menuElementPositionX + MENU_WIDTH - 165, menuElementPositionY - 13);
+
+    // ===========================================================================================
+    // create a horizontal bar to separate sections
+    menuElementPositionY += 12;
+    fill(MENU_BAR_COLOR);
+    stroke(MENU_BAR_COLOR);
+    rect(menuElementPositionX, menuElementPositionY, MENU_WIDTH - MENU_ELEMENT_OFFSET_X * 2, 1);
+    menuElementPositionY += 1;
 
     // ===========================================================================================
     menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
     fill(MENU_TEXT_COLOR);
-    text("Maze Solver Algorithm: ", menuElementPositionX, menuElementPositionY);
-    mazeSolverDropdown.draw(menuElementPositionX + MENU_WIDTH - 165, menuElementPositionY - 13);
+    text("Grid cell size:", menuElementPositionX, menuElementPositionY);
+    gridSizeSlider.draw(menuElementPositionX + MENU_WIDTH - 170, menuElementPositionY - 6);
+    
+    // ===========================================================================================
+    menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
+    fill(MENU_TEXT_COLOR);
+    text("Maze generation algorithm:", menuElementPositionX, menuElementPositionY);
+    mazeGenDropdown.draw(menuElementPositionX + MENU_WIDTH - 170, menuElementPositionY - 13);
+
+    // ===========================================================================================
+    menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
+    fill(MENU_TEXT_COLOR);
+    text("Maze solver algorithm:", menuElementPositionX, menuElementPositionY);
+    mazeSolverDropdown.draw(menuElementPositionX + MENU_WIDTH - 170, menuElementPositionY - 13);
+
+    // ===========================================================================================
+    // For non-perfect mazes, we should display a slider on what percent of cells to delete
+    // (deleting walls from a perfect maze creates a non-perfect maze)
+    if (imperfectMazes.includes(mazeGenDropdown.value())) {
+        menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
+        fill(MENU_TEXT_COLOR);
+        text("% of walls to delete:", menuElementPositionX, menuElementPositionY);
+        wallDeletionPercentSlider.draw(menuElementPositionX + MENU_WIDTH - 170, menuElementPositionY - 6);
+    }
+
+    // ===========================================================================================
+    // create a horizontal bar to separate sections
+    menuElementPositionY += 12;
+    fill(MENU_BAR_COLOR);
+    stroke(MENU_BAR_COLOR);
+    rect(menuElementPositionX, menuElementPositionY, MENU_WIDTH - MENU_ELEMENT_OFFSET_X * 2, 1);
+    menuElementPositionY += 1;
 
     // ===========================================================================================
     // we should only have one dropdown active at a time so that they do not lay over each other
@@ -91,8 +130,12 @@ let yOffset;
 let locked = false;
 
 function mousePressed() {
+    if (menuHidden) return; // no functionalities if menu is hidden
+
+    if (gridSizeSlider.mousePressed()) return;
     if (mazeGenDropdown.mousePressed()) return;
     if (mazeSolverDropdown.mousePressed()) return;
+    if (wallDeletionPercentSlider.mousePressed()) return;
     
     if (overMenu) locked = true;
     else locked = false;
@@ -102,6 +145,11 @@ function mousePressed() {
 }
 
 function mouseDragged() {
+    if (menuHidden) return; // no functionalities if menu is hidden
+
+    if (gridSizeSlider.mouseDragged()) return;
+    if (wallDeletionPercentSlider.mouseDragged()) return;
+
     if (locked) {
         menuX = mouseX - xOffset;
         menuY = mouseY - yOffset;
@@ -116,6 +164,11 @@ function mouseDragged() {
 }
 
 function mouseReleased() {
+    if (menuHidden) return; // no functionalities if menu is hidden
+    
+    if (gridSizeSlider.mouseReleased()) return;
+    if (wallDeletionPercentSlider.mouseReleased()) return;
+
     locked = false;
 }
 
