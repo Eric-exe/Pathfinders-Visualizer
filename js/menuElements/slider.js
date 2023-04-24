@@ -1,8 +1,7 @@
-const SLIDER_BG_COLOR = [200, 200, 200];
-const SLIDER_FILLED_COLOR = [30, 144, 255];
-
+const SLIDER_BG_COLOR = [200, 200, 200, TRANSPARENCY];
+const SLIDER_FILLED_COLOR = [30, 144, 255, TRANSPARENCY];
 const SLIDER_CIRCLE_COLOR = [220, 220, 220];
-const SLIDER_OVER_CIRCLE_BORDER_COLOR = [30, 144, 255];
+const SLIDER_OVER_CIRCLE_BORDER_COLOR = [30, 144, 255, TRANSPARENCY];
 
 const SLIDER_TEXT_COLOR = [255, 255, 255];
 
@@ -74,7 +73,6 @@ class Slider {
 
             // calculate the current value given circleX
             this.currentVal = Math.floor(((this.circleX - this.x) / (this.width)) * (this.endVal - this.beginVal)) + this.beginVal;
-            console.log((this.circleX - this.x) / (this.width));
 
             return true;
         }

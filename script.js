@@ -4,6 +4,8 @@ let COLS;
 let FRAMERATE = 60; // some browsers might not support framerates. Max framerate: 60
 
 function init() {
+    frameRate(FRAMERATE);
+
     ROWS = Math.ceil(windowHeight / (CELL_PIXELS + 1));
     COLS = Math.ceil(windowWidth  / (CELL_PIXELS + 1));
 
@@ -12,7 +14,6 @@ function init() {
 }
 
 function setup() {
-    frameRate(FRAMERATE);
     canvas = createCanvas(windowWidth, windowHeight);
     canvas.style('display', 'block');
     init();
