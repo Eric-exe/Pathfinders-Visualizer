@@ -6,11 +6,11 @@ const MENU_TEXT_COLOR = [255, 255, 255, TRANSPARENCY];
 const MENU_BAR_COLOR = [255, 255, 255, TRANSPARENCY];
 
 const MENU_WIDTH = 325;
-const MENU_HEIGHT = 350;
+const MENU_HEIGHT = 305;
 const MENU_RADIUS = 5; // for rounded edges
 const MENU_OFFSET = 25; // for initial position
 
-const MENU_ELEMENT_OFFSET_X = 10;
+const MENU_ELEMENT_OFFSET_X = 6;
 const MENU_ELEMENT_OFFSET_Y = 25;
 
 const HIDE_MENU_KEY = "m";
@@ -30,6 +30,9 @@ let mazeSolverDropdown;
 let percentWallDeletionSlider;
 let skipGenAnimationCheckbox;
 let skipSolverAnimationCheckbox;
+let genMazeButton;
+let solveMazeButton;
+let resetMazeButton;
 // ======================================================================
 
 const mazeGenAlgorithms = {
@@ -56,6 +59,9 @@ function menuInit() {
     gridSizeSlider = new Slider(2, 100, CELL_PIXELS);
     skipGenAnimationCheckbox = new Checkbox("Skip maze generation animation", false);
     skipSolverAnimationCheckbox = new Checkbox("Skip maze solver animation", false);
+    genMazeButton = new Button("Generate maze");
+    solveMazeButton = new Button("Solve maze");
+    resetMazeButton = new Button("Reset maze");
 }
 
 function drawMenu() {
@@ -148,6 +154,30 @@ function drawMenu() {
     menuElementPositionY += 1;
 
     // ===========================================================================================
+    // Buttons
+    menuElementPositionY += 7;
+    genMazeButton.draw(menuElementPositionX, menuElementPositionY);
+
+    solveMazeButton.draw(genMazeButton.x + genMazeButton.width + MENU_ELEMENT_OFFSET_X, menuElementPositionY);
+
+    resetMazeButton.draw(solveMazeButton.x + solveMazeButton.width + MENU_ELEMENT_OFFSET_X, menuElementPositionY);
+    menuElementPositionY += 2;
+    // ===========================================================================================
+    // create a horizontal bar to separate sections
+    menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
+    fill(MENU_BAR_COLOR);
+    stroke(MENU_BAR_COLOR);
+    rect(menuElementPositionX, menuElementPositionY, MENU_WIDTH - MENU_ELEMENT_OFFSET_X * 2, 1);
+    menuElementPositionY += 1;
+
+    // ===========================================================================================
+    
+    menuElementPositionY += MENU_ELEMENT_OFFSET_Y - 3;
+    fill(MENU_TEXT_COLOR);
+    stroke(MENU_TEXT_COLOR);
+    text("[ M ] Show / Hide menu", menuElementPositionX, menuElementPositionY);
+
+    // ===========================================================================================
     // we should only have one dropdown active at a time so that they do not lay over each other
     let dropdownActive = false;
     if (!dropdownActive) dropdownActive = mazeGenDropdown.drawDropdown();
@@ -169,6 +199,7 @@ function mousePressed() {
     if (wallDeletionPercentSlider.mousePressed()) return;
     if (skipGenAnimationCheckbox.mousePressed()) return;
     if (skipSolverAnimationCheckbox.mousePressed()) return;
+    if (genMazeButton.mousePressed()) return;
     // ===========================================================================================
     if (overMenu) locked = true;
     else locked = false;
