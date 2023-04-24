@@ -75,8 +75,10 @@ function drawMenu() {
     mazeSolverDropdown.draw(menuElementPositionX + MENU_WIDTH - 165, menuElementPositionY - 13);
 
     // ===========================================================================================
-    mazeGenDropdown.drawDropdown();
-    mazeSolverDropdown.drawDropdown();
+    // we should only have one dropdown active at a time so that they do not lay over each other
+    let dropdownActive = false;
+    if (!dropdownActive) dropdownActive = mazeGenDropdown.drawDropdown();
+    if (!dropdownActive) dropdownActive = mazeSolverDropdown.drawDropdown();
 }
 
 // Taken from https://p5js.org/examples/input-mouse-functions.html
