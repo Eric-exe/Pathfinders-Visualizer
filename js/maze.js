@@ -11,7 +11,7 @@ const RES_COLOR = [0, 76, 153];
 let CELL_PIXELS = 25;
 
 let MAZE_GEN = "primImperfect";
-let WALL_DELETION_PERCENT = 25; // to make an imperfect maze, delete a random amount of walls
+let WALL_DELETION_PERCENT = 10; // to make an imperfect maze, delete a random amount of walls
 
 let MAZE_SOLVER = "aStar";
 
