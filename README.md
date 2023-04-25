@@ -1,6 +1,6 @@
 # Pathfinders Visualizer
 
-[![Website Status](https://img.shields.io/website?down_color=lightgrey&down_message=offline&style=flat&up_color=blue&up_message=online&url=https%3A%2F%2Fericlin-jpg.github.io%2FPathfinders-Visualizer%2F)](https://ericlin-jpg.github.io/Pathfinders-Visualizer/) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/be70cdaa95cf419b8576eca198955bd8)](https://app.codacy.com/gh/EricLin-jpg/Pathfinders-Visualizer/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) ![License](https://img.shields.io/github/license/ericlin-jpg/pathfinders-visualizer)
+[![Website Status](https://img.shields.io/website?down_color=lightgrey&down_message=offline&style=flat&up_color=blue&up_message=online&url=https%3A%2F%2Fericlin-jpg.github.io%2FPathfinders-Visualizer%2F)](https://ericlin-jpg.github.io/Pathfinders-Visualizer/) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/be70cdaa95cf419b8576eca198955bd8)](https://app.codacy.com/gh/EricLin-jpg/Pathfinders-Visualizer/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) ![License](https://img.shields.io/github/license/EricLin-jpg/Pathfinders-Visualizer)
 
 A website visualizing maze generation and pathfinders algorithms!
 
