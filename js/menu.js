@@ -6,7 +6,7 @@ const MENU_TEXT_COLOR = [255, 255, 255, TRANSPARENCY];
 const MENU_BAR_COLOR = [255, 255, 255, TRANSPARENCY];
 
 const MENU_WIDTH = 325;
-const MENU_HEIGHT = 305;
+const MENU_HEIGHT = 325;
 const MENU_RADIUS = 5; // for rounded edges
 const MENU_OFFSET = 25; // for initial position
 
@@ -56,7 +56,7 @@ function menuInit() {
     mazeGenDropdown = new Dropdown(mazeGenAlgorithms);
     mazeSolverDropdown = new Dropdown(mazeSolverAlgorithms);
     wallDeletionPercentSlider = new Slider(0, 100, WALL_DELETION_PERCENT);
-    gridSizeSlider = new Slider(2, 100, CELL_PIXELS);
+    gridSizeSlider = new Slider(10, 100, CELL_PIXELS);
     skipGenAnimationCheckbox = new Checkbox("Skip maze generation animation", false);
     skipSolverAnimationCheckbox = new Checkbox("Skip maze solver animation", false);
     genMazeButton = new Button("Generate maze");
@@ -86,73 +86,59 @@ function drawMenu() {
     textAlign(CENTER);
     text("MENU", menuX + MENU_WIDTH / 2, menuElementPositionY);
     textAlign(LEFT);
-
     // ===========================================================================================
-    // create a horizontal bar to separate sections
     menuElementPositionY += 12;
     fill(MENU_BAR_COLOR);
     stroke(MENU_BAR_COLOR);
     rect(menuElementPositionX, menuElementPositionY, MENU_WIDTH - MENU_ELEMENT_OFFSET_X * 2, 1);
     menuElementPositionY += 1;
-
     // ===========================================================================================
     menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
     fill(MENU_TEXT_COLOR);
     text("Frame rate:", menuElementPositionX, menuElementPositionY);
     frameRateSlider.draw(menuElementPositionX + MENU_WIDTH - 170, menuElementPositionY - 6);
-
     // ===========================================================================================
     menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
     fill(MENU_TEXT_COLOR);
     text("Grid cell size:", menuElementPositionX, menuElementPositionY);
     gridSizeSlider.draw(menuElementPositionX + MENU_WIDTH - 170, menuElementPositionY - 6);
-    
     // ===========================================================================================
     menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
     fill(MENU_TEXT_COLOR);
     text("Maze generation algorithm:", menuElementPositionX, menuElementPositionY);
     mazeGenDropdown.draw(menuElementPositionX + MENU_WIDTH - 170, menuElementPositionY - 13);
-
     // ===========================================================================================
     menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
     fill(MENU_TEXT_COLOR);
     text("Maze solver algorithm:", menuElementPositionX, menuElementPositionY);
     mazeSolverDropdown.draw(menuElementPositionX + MENU_WIDTH - 170, menuElementPositionY - 13);
-
     // ===========================================================================================
     // For non-perfect mazes, we should display a slider on what percent of cells to delete
     // (deleting walls from a perfect maze creates a non-perfect maze)
-    if (imperfectMazes.includes(mazeGenDropdown.value())) {
+    if (imperfectMazes.includes(mazeGenDropdown.value)) {
         menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
         fill(MENU_TEXT_COLOR);
         text("% of walls to delete:", menuElementPositionX, menuElementPositionY);
         wallDeletionPercentSlider.draw(menuElementPositionX + MENU_WIDTH - 170, menuElementPositionY - 6);
     }
-
     // ===========================================================================================
-    // create a horizontal bar to separate sections
     menuElementPositionY += 12;
     fill(MENU_BAR_COLOR);
     stroke(MENU_BAR_COLOR);
     rect(menuElementPositionX, menuElementPositionY, MENU_WIDTH - MENU_ELEMENT_OFFSET_X * 2, 1);
     menuElementPositionY += 1;
-    
     // ===========================================================================================
-    // Skip animations
     menuElementPositionY += 7;
     skipGenAnimationCheckbox.draw(menuElementPositionX, menuElementPositionY);
 
     menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
     skipSolverAnimationCheckbox.draw(menuElementPositionX, menuElementPositionY);
-
     // ===========================================================================================
-    // create a horizontal bar to separate sections
     menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
     fill(MENU_BAR_COLOR);
     stroke(MENU_BAR_COLOR);
     rect(menuElementPositionX, menuElementPositionY, MENU_WIDTH - MENU_ELEMENT_OFFSET_X * 2, 1);
     menuElementPositionY += 1;
-
     // ===========================================================================================
     // Buttons
     menuElementPositionY += 7;
@@ -163,20 +149,37 @@ function drawMenu() {
     resetMazeButton.draw(solveMazeButton.x + solveMazeButton.width + MENU_ELEMENT_OFFSET_X, menuElementPositionY);
     menuElementPositionY += 2;
     // ===========================================================================================
-    // create a horizontal bar to separate sections
     menuElementPositionY += MENU_ELEMENT_OFFSET_Y;
     fill(MENU_BAR_COLOR);
     stroke(MENU_BAR_COLOR);
     rect(menuElementPositionX, menuElementPositionY, MENU_WIDTH - MENU_ELEMENT_OFFSET_X * 2, 1);
     menuElementPositionY += 1;
-
     // ===========================================================================================
-    
-    menuElementPositionY += MENU_ELEMENT_OFFSET_Y - 3;
+    menuElementPositionY += 17;
     fill(MENU_TEXT_COLOR);
     stroke(MENU_TEXT_COLOR);
-    text("[ M ] Show / Hide menu", menuElementPositionX, menuElementPositionY);
 
+    textAlign(LEFT);
+    text("Cells explored: " + menuCellsExplored, menuX + 5, menuElementPositionY);
+    textAlign(RIGHT);
+    text("Path length: " + menuPathLength, menuX + MENU_WIDTH - 5, menuElementPositionY);
+    textAlign(LEFT);
+    // ===========================================================================================
+    menuElementPositionY += 9;
+    fill(MENU_BAR_COLOR);
+    stroke(MENU_BAR_COLOR);
+    rect(menuElementPositionX, menuElementPositionY, MENU_WIDTH - MENU_ELEMENT_OFFSET_X * 2, 1);
+    menuElementPositionY += 5;
+    // ===========================================================================================
+    menuElementPositionY += 15;
+    fill(MENU_TEXT_COLOR);
+    stroke(MENU_TEXT_COLOR);
+
+    textAlign(LEFT);
+    text("FPS: " + Math.round(frameRate()), menuX + 5, menuElementPositionY);
+    textAlign(RIGHT);
+    text("[ M ] Show / Hide menu", menuX + MENU_WIDTH - 5, menuElementPositionY);
+    textAlign(LEFT);
     // ===========================================================================================
     // we should only have one dropdown active at a time so that they do not lay over each other
     let dropdownActive = false;
@@ -194,12 +197,48 @@ function mousePressed() {
 
     if (frameRateSlider.mousePressed()) return;
     if (gridSizeSlider.mousePressed()) return;
+
     if (mazeGenDropdown.mousePressed()) return;
     if (mazeSolverDropdown.mousePressed()) return;
+
     if (wallDeletionPercentSlider.mousePressed()) return;
-    if (skipGenAnimationCheckbox.mousePressed()) return;
-    if (skipSolverAnimationCheckbox.mousePressed()) return;
-    if (genMazeButton.mousePressed()) return;
+
+    if (skipGenAnimationCheckbox.mousePressed()) {
+        SKIP_GEN_ANIM = skipGenAnimationCheckbox.value;
+        return;
+    };
+
+    if (skipSolverAnimationCheckbox.mousePressed()) {
+        SKIP_SOLVER_ANIM = skipSolverAnimationCheckbox.value;
+        return;
+    };
+
+    if (genMazeButton.mousePressed()) {
+        CELL_PIXELS = gridSizeSlider.value;
+        MAZE_GEN = mazeGenDropdown.value;
+        WALL_DELETION_PERCENT = wallDeletionPercentSlider.value;
+
+        mazeInit();
+        genAnimated = false; // show the maze being built
+        solverAnimated = true; // do not show the maze being solved
+
+        return;
+    };
+
+    if (solveMazeButton.mousePressed()) {
+        MAZE_SOLVER = mazeSolverDropdown.value;
+        resetMaze();
+        solveMaze();
+        solverAnimated = false; // show the maze being solved
+
+        return;
+    };
+    if (resetMazeButton.mousePressed()) {
+        resetMaze();
+        solverAnimated = true;
+
+        return;
+    };
     // ===========================================================================================
     if (overMenu) locked = true;
     else locked = false;
@@ -232,7 +271,11 @@ function mouseDragged() {
 function mouseReleased() {
     if (menuHidden) return; // no functionalities if menu is hidden
     
-    if (frameRateSlider.mouseReleased()) return;
+    if (frameRateSlider.mouseReleased()) {
+        frameRate(frameRateSlider.value());
+        return;
+    };
+
     if (gridSizeSlider.mouseReleased()) return;
     if (wallDeletionPercentSlider.mouseReleased()) return;
 

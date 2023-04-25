@@ -40,7 +40,8 @@ class Button {
             mouseY > this.y &&
             mouseX < this.x + this.width &&
             mouseY < this.y + this.height) {
-            console.log("Button pressed");
+            return true;
         }
+        return false;
     }
 }
