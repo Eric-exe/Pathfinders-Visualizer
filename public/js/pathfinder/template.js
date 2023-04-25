@@ -45,6 +45,6 @@ function template() {
     */
 
     // reset variables
-    mazeSolverSteps = [];
-    mazeSolverCounter = 0;
+    mazeSolverSteps = []
+    mazeSolverCounter = 0
 }
