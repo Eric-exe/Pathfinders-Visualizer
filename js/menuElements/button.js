@@ -32,7 +32,7 @@ class Button {
         let textW = textWidth(this.text);
         fill(BUTTON_TEXT_COLOR);
         stroke(BUTTON_TEXT_COLOR);
-        text(this.text, this.x + (this.width - textW) / 2, this.y + 13);
+        text(this.text, this.x + (this.width - textW) / 2, this.y + 14);
     }
 
     mousePressed() {
