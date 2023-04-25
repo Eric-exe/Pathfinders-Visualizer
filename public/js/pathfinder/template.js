@@ -44,6 +44,8 @@ function template() {
     ============================================================================================
     */
 
+    // Afterwords, update the menu in menu.js to display your pathfinder algorithm.
+
     // reset variables
     mazeSolverSteps = []
     mazeSolverCounter = 0

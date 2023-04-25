@@ -46,6 +46,8 @@ function template() {
     This allows the animation of your algorithm, seen in animateMazeGen().
     */
 
+    // Afterwords, update the menu in menu.js to display your maze generation algorithm.
+
     // reset variables
     mazeGenSteps = []
     mazeGenCounter = 0
