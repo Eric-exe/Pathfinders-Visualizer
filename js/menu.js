@@ -347,7 +347,7 @@ function mouseReleased() {
     if (menuHidden) return // no functionalities if menu is hidden
 
     if (frameRateSlider.mouseReleased()) {
-        frameRate(frameRateSlider.value())
+        frameRate(frameRateSlider.value)
         return
     }
 
