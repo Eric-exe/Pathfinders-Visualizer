@@ -37,14 +37,14 @@ class Checkbox {
         text(this.text, this.x + this.length + 5, this.y + this.length / 2 + 4);
     }
 
-    value() {
-        return this.value;
-    }
-
     mousePressed() {
         if (mouseX > this.x &&
             mouseY > this.y &&
             mouseX < this.x + this.length &&
-            mouseY < this.y + this.length) this.value = !this.value;
+            mouseY < this.y + this.length) {
+            this.value = !this.value;
+            return true;
         }
+        return false;
     }
+}

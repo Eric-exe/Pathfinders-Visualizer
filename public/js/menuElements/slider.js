@@ -6,10 +6,10 @@ const SLIDER_OVER_CIRCLE_BORDER_COLOR = [30, 144, 255, TRANSPARENCY];
 const SLIDER_TEXT_COLOR = [255, 255, 255];
 
 class Slider {
-    constructor(beginVal, endVal, currentVal) {
+    constructor(beginVal, endVal, value) {
         this.beginVal = beginVal;
         this.endVal = endVal;
-        this.currentVal = currentVal;
+        this.value = value;
 
         this.width = 150;
         this.height = 3;
@@ -30,13 +30,13 @@ class Slider {
         // fill the left of the bar
         fill(SLIDER_FILLED_COLOR);
         stroke(SLIDER_FILLED_COLOR);
-        rect(this.x, this.y, this.width * ((this.currentVal - this.beginVal) / (this.endVal - this.beginVal)), this.height, this.radius);
+        rect(this.x, this.y, this.width * ((this.value - this.beginVal) / (this.endVal - this.beginVal)), this.height, this.radius);
 
         // draw a draggable circle
         fill(SLIDER_CIRCLE_COLOR);
         stroke(SLIDER_CIRCLE_COLOR);
 
-        this.circleX = this.x + this.width * ((this.currentVal - this.beginVal) / (this.endVal - this.beginVal));
+        this.circleX = this.x + this.width * ((this.value - this.beginVal) / (this.endVal - this.beginVal));
         this.circleY = this.y + this.height / 2;
         this.circleRadius = 10;
 
@@ -46,13 +46,8 @@ class Slider {
         // draw the text to the left of the slider
         fill(SLIDER_TEXT_COLOR);
         stroke(SLIDER_TEXT_COLOR);
-        text(this.currentVal, this.x - 25, this.y + 6);
+        text(this.value, this.x - 25, this.y + 6);
     }
-
-    value() {
-        return this.currentVal;
-    }
-
 
     mousePressed() {
         if (Math.sqrt(Math.pow(mouseX - this.circleX, 2) + Math.pow(mouseY - this.circleY, 2)) < this.circleRadius) {
@@ -72,7 +67,7 @@ class Slider {
             this.circleX = Math.min(this.circleX, this.x + this.width);
 
             // calculate the current value given circleX
-            this.currentVal = Math.floor(((this.circleX - this.x) / (this.width)) * (this.endVal - this.beginVal)) + this.beginVal;
+            this.value = Math.floor(((this.circleX - this.x) / (this.width)) * (this.endVal - this.beginVal)) + this.beginVal;
 
             return true;
         }
@@ -80,6 +75,9 @@ class Slider {
     }
 
     mouseReleased() {
+        let res = false;
+        if (this.locked) res = true; 
         this.locked = false;
+        return res;
     }
 }

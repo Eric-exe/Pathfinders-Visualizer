@@ -9,7 +9,8 @@ class Dropdown {
         this.height = 18;
 
         this.elements = elements;
-        this.current = Object.keys(elements)[0];
+        this.current = Object.keys(this.elements)[0];
+        this.value = this.elements[this.current]
 
         this.pressed = false;
     }
@@ -68,10 +69,6 @@ class Dropdown {
         return true;
     }
 
-    value() {
-        return this.elements[this.current];
-    }
-
     mousePressed() {
         if (this.pressed) {
             // check if any of the options were pressed
@@ -86,6 +83,7 @@ class Dropdown {
                     mouseX < optionsX + this.width &&
                     mouseY < optionsY + this.height * (i + 1)) {
                     this.current = options[i];
+                    this.value = this.elements[this.current];
                     this.pressed = false; // close the dropdown
                     return true;
                 }
