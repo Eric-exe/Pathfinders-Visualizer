@@ -8,7 +8,7 @@ const MENU_BAR_COLOR = [255, 255, 255, TRANSPARENCY];
 const MENU_WIDTH = 325;
 const MENU_HEIGHT = 325;
 const MENU_RADIUS = 5; // for rounded edges
-const MENU_OFFSET = 25; // for initial position
+const MENU_OFFSET = 10; // for initial position
 
 const MENU_ELEMENT_OFFSET_X = 6;
 const MENU_ELEMENT_OFFSET_Y = 25;
@@ -176,9 +176,9 @@ function drawMenu() {
     stroke(MENU_TEXT_COLOR);
 
     textAlign(LEFT);
-    text("FPS: " + Math.round(frameRate()), menuX + 5, menuElementPositionY);
+    text("FPS: " + Math.round(frameRate()), menuX + 5, menuY + MENU_HEIGHT - 10);
     textAlign(RIGHT);
-    text("[ M ] Show / Hide menu", menuX + MENU_WIDTH - 5, menuElementPositionY);
+    text("[ M ] Show / Hide menu", menuX + MENU_WIDTH - 5, menuY + MENU_HEIGHT - 10);
     textAlign(LEFT);
     // ===========================================================================================
     // we should only have one dropdown active at a time so that they do not lay over each other
