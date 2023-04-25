@@ -37,7 +37,7 @@ let resetMazeButton
 
 const mazeGenAlgorithms = {
     'Non-perfect Prim': 'primImperfect',
-    Prim: 'prim',
+    'Prim': 'prim',
 }
 
 const imperfectMazes = ['primImperfect']
