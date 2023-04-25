@@ -40,7 +40,7 @@ Start the server
 ```bash
   npm start
 ```
-
+Go to http://localhost:8080/, and that's it!
 
 ## Acknowledgements
 
