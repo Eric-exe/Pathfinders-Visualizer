@@ -54,7 +54,7 @@ function aStar() {
         ) {
             paths[[currentCell[0], currentCell[1] - 1]] = currentCell
 
-            let dist = manhattenDist(currentCell[0], currentCell[1] - 1)
+            let dist = manhattanDist(currentCell[0], currentCell[1] - 1)
             if (!pq[score + 1 + dist]) pq[score + 1 + dist] = []
             pq[score + 1 + dist].push([currentCell[0], currentCell[1] - 1])
 
