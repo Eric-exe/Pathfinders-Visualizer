@@ -2,7 +2,7 @@
 A* Algorithm
 */
 
-function manhattenDist(currentCellX, currentCellY) {
+function manhattanDist(currentCellX, currentCellY) {
     return (
         Math.abs(endCell[0] - currentCellX) +
         Math.abs(endCell[1] - currentCellY)
@@ -43,7 +43,7 @@ function aStar() {
         if (currentCell[0] == endCell[0] && currentCell[1] == endCell[1]) break
 
         // Note: we are using original state because we will not have animated prim which will update the maze
-        // AStar uses 2 additional variables, distance from source (+ 1) and manhatten distance
+        // AStar uses 2 additional variables, distance from source (+ 1) and manhattan distance
 
         // check left
         if (
@@ -75,7 +75,7 @@ function aStar() {
         ) {
             paths[[currentCell[0] - 1, currentCell[1]]] = currentCell
 
-            let dist = manhattenDist(currentCell[0] - 1, currentCell[1])
+            let dist = manhattanDist(currentCell[0] - 1, currentCell[1])
             if (!pq[score + 1 + dist]) pq[score + 1 + dist] = []
             pq[score + 1 + dist].push([currentCell[0] - 1, currentCell[1]])
 
@@ -96,7 +96,7 @@ function aStar() {
         ) {
             paths[[currentCell[0], currentCell[1] + 1]] = currentCell
 
-            let dist = manhattenDist(currentCell[0], currentCell[1] + 1)
+            let dist = manhattanDist(currentCell[0], currentCell[1] + 1)
             if (!pq[score + 1 + dist]) pq[score + 1 + dist] = []
             pq[score + 1 + dist].push([currentCell[0], currentCell[1] + 1])
 
@@ -117,7 +117,7 @@ function aStar() {
         ) {
             paths[[currentCell[0] + 1, currentCell[1]]] = currentCell
 
-            let dist = manhattenDist(currentCell[0] + 1, currentCell[1])
+            let dist = manhattanDist(currentCell[0] + 1, currentCell[1])
             if (!pq[score + 1 + dist]) pq[score + 1 + dist] = []
             pq[score + 1 + dist].push([currentCell[0] + 1, currentCell[1]])
 
