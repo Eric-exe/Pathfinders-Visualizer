@@ -6,7 +6,7 @@ const MENU_TEXT_COLOR = [255, 255, 255, TRANSPARENCY]
 const MENU_BAR_COLOR = [255, 255, 255, TRANSPARENCY]
 
 const MENU_WIDTH = 325
-const MENU_HEIGHT = 325
+const MENU_HEIGHT = 350
 const MENU_RADIUS = 5 // for rounded edges
 const MENU_OFFSET = 10 // for initial position
 
@@ -28,6 +28,7 @@ let gridSizeSlider
 let mazeGenDropdown
 let mazeSolverDropdown
 let percentWallDeletionSlider
+let fancyAnimationsCheckbox
 let skipGenAnimationCheckbox
 let skipSolverAnimationCheckbox
 let genMazeButton
@@ -52,11 +53,15 @@ function menuInit() {
     menuX = windowWidth - MENU_WIDTH - MENU_OFFSET
     menuY = windowHeight - MENU_HEIGHT - MENU_OFFSET
 
-    frameRateSlider = new Slider(20, 60, FRAMERATE)
+    frameRateSlider = new Slider(5, 60, FRAMERATE)
     mazeGenDropdown = new Dropdown(mazeGenAlgorithms)
     mazeSolverDropdown = new Dropdown(mazeSolverAlgorithms)
     wallDeletionPercentSlider = new Slider(0, 100, WALL_DELETION_PERCENT)
     gridSizeSlider = new Slider(10, 100, CELL_PIXELS)
+    fancyAnimationsCheckbox = new Checkbox(
+        'Fancy animations',
+        true
+    )
     skipGenAnimationCheckbox = new Checkbox(
         'Skip maze generation animation',
         false
@@ -171,6 +176,9 @@ function drawMenu() {
     menuElementPositionY += 1
     // ===========================================================================================
     menuElementPositionY += 7
+    fancyAnimationsCheckbox.draw(menuElementPositionX, menuElementPositionY)
+
+    menuElementPositionY += MENU_ELEMENT_OFFSET_Y
     skipGenAnimationCheckbox.draw(menuElementPositionX, menuElementPositionY)
 
     menuElementPositionY += MENU_ELEMENT_OFFSET_Y
@@ -277,6 +285,11 @@ function mousePressed() {
     if (mazeSolverDropdown.mousePressed()) return
 
     if (wallDeletionPercentSlider.mousePressed()) return
+
+    if (fancyAnimationsCheckbox.mousePressed()) {
+        FANCY_ANIM = fancyAnimationsCheckbox.value
+        return
+    }
 
     if (skipGenAnimationCheckbox.mousePressed()) {
         SKIP_GEN_ANIM = skipGenAnimationCheckbox.value

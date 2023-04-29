@@ -16,6 +16,7 @@ let MAZE_SOLVER = 'aStar'
 
 let SKIP_GEN_ANIM = false
 let SKIP_SOLVER_ANIM = false
+let FANCY_ANIM = true
 
 let ROWS
 let COLS
@@ -106,36 +107,73 @@ function drawGrid() {
     }
 }
 
+function getColor(cellType) {
+    let fillColor
+    switch (cellType) {
+        case 'wall':
+            fillColor = WALL_COLOR
+            break
+        case 'path':
+            fillColor = PATH_COLOR
+            break
+        case 'begin':
+            fillColor = BEGIN_COLOR
+            break
+        case 'end':
+            fillColor = END_COLOR
+            break
+        case 'explored':
+            fillColor = EXPLORED_COLOR
+            break
+        case 'res':
+            fillColor = RES_COLOR
+            break
+    }
+    return fillColor
+}
+
 function drawCells() {
     noStroke()
 
     for (let i = 0; i < ROWS; i++) {
         for (let j = 0; j < COLS; j++) {
-            let fillColor
+            if (FANCY_ANIM && maze[i][j][4]) { // fancy animations
+                // draw the old cell
+                fill(getColor(maze[i][j][5]))
+                square(maze[i][j][2], maze[i][j][3], CELL_PIXELS)
 
-            switch (maze[i][j][0]) {
-                case 'wall':
-                    fillColor = WALL_COLOR
-                    break
-                case 'path':
-                    fillColor = PATH_COLOR
-                    break
-                case 'begin':
-                    fillColor = BEGIN_COLOR
-                    break
-                case 'end':
-                    fillColor = END_COLOR
-                    break
-                case 'explored':
-                    fillColor = EXPLORED_COLOR
-                    break
-                case 'res':
-                    fillColor = RES_COLOR
-                    break
+                // draw new cell
+                push()
+                noStroke()
+                fill(getColor(maze[i][j][0]))
+
+                square(
+                    maze[i][j][2] + maze[i][j][6],
+                    maze[i][j][3] + maze[i][j][6],
+                    CELL_PIXELS - 2 * maze[i][j][6],
+                    maze[i][j][7]
+                )
+
+                pop()
+
+                // update values
+                // centering
+                maze[i][j][6] -= 1
+                maze[i][j][6] = Math.max(maze[i][j][6], 0)
+
+                // radius
+                maze[i][j][7] -= 1
+                maze[i][j][7] = Math.max(maze[i][j][7], 0)
+
+                // check if it is done animating
+                if (maze[i][j][6] == 0 && maze[i][j][7] == 0)
+                    maze[i][j][4] = false
             }
 
-            fill(fillColor)
-            square(maze[i][j][2], maze[i][j][3], CELL_PIXELS)
+            else {
+                fill(getColor(maze[i][j][0]))
+                square(maze[i][j][2], maze[i][j][3], CELL_PIXELS)
+            }
         }
     }
 }
@@ -163,6 +201,12 @@ function animateMazeGen() {
             }
             return true
         } else {
+            if (FANCY_ANIM) {
+                maze[coords[0]][coords[1]][4] = true
+                maze[coords[0]][coords[1]][5] = maze[coords[0]][coords[1]][0]
+                maze[coords[0]][coords[1]][6] = Math.floor(CELL_PIXELS / 2)
+                maze[coords[0]][coords[1]][7] = 10
+            }
             maze[coords[0]][coords[1]][0] = maze[coords[0]][coords[1]][1]
             mazeGenCounter++
             return false
@@ -215,6 +259,12 @@ function animateMazeSolver() {
                 mazeSolverCounter++
                 menuCellsExplored++
                 return false
+            }
+            if (FANCY_ANIM) {
+                maze[step[0]][step[1]][4] = true
+                maze[step[0]][step[1]][5] = maze[step[0]][step[1]][0]
+                maze[step[0]][step[1]][6] = Math.floor(CELL_PIXELS / 2)
+                maze[step[0]][step[1]][7] = 10
             }
             maze[step[0]][step[1]][0] = step[2]
             mazeSolverCounter++

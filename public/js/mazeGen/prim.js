@@ -14,6 +14,10 @@ function primInit() {
                 'wall', // original state, we will need it when the user wants to reset the maze
                 CELL_PIXELS * j + j, // x coord
                 CELL_PIXELS * i + i, // y coord
+                false, // is it being animated right now? (for fancy animations)
+                'wall', // old state (we set these later)
+                0, // centering (we set these later)
+                0, // radius (we set these later)
             ]
         }
     }
