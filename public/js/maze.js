@@ -166,7 +166,7 @@ function drawCells() {
                 maze[i][j][7] = Math.max(maze[i][j][7], 0)
 
                 // check if it is done animating
-                if (maze[i][j][6] == 0 && maze[i][j][7] == 0)
+                if (maze[i][j][6] === 0 && maze[i][j][7] === 0)
                     maze[i][j][4] = false
             }
 
