@@ -162,7 +162,7 @@ function drawCells() {
                 maze[i][j][6] = Math.max(maze[i][j][6], 0)
 
                 // radius
-                maze[i][j][7] -= 0.5
+                maze[i][j][7] -= 1
                 maze[i][j][7] = Math.max(maze[i][j][7], 0)
 
                 // check if it is done animating
