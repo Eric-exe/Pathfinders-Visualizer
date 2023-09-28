@@ -1,6 +1,6 @@
 # Pathfinders Visualizer
 
-[![Website Status](https://img.shields.io/website?down_color=lightgrey&down_message=offline&style=flat&up_color=blue&up_message=online&url=https%3A%2F%2Fericlin-jpg.github.io%2FPathfinders-Visualizer%2F)](https://eric-exe.github.io/Pathfinders-Visualizer/) 
+[![Website Status](https://img.shields.io/website?down_color=lightgrey&down_message=offline&style=flat&up_color=blue&up_message=online&url=https%3A%2F%2Feric-exe.github.io%2FPathfinders-Visualizer%2F)](https://eric-exe.github.io/Pathfinders-Visualizer/) 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/222e7e003e31406caf18378e37f4e7d8)](https://app.codacy.com/gh/Eric-exe/Pathfinders-Visualizer/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 ![License](https://img.shields.io/github/license/EricLin-jpg/Pathfinders-Visualizer)
 
